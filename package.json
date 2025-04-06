@@ -51,8 +51,9 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-react": "^7.29.4",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.5.0",
+    "git-commit-msg-linter": "^4.1.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "prettier-config-standard": "^5.0.0"
   }
 }
