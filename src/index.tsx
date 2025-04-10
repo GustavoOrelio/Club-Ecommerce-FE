@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals'
 
 // Contexts
 import UserContextProvider from './contexts/user.context'
+import CategoryContextProvider from './contexts/category.context'
 
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
   <React.StrictMode>
     <UserContextProvider>
-      <App />
+      <CategoryContextProvider>
+        <App />
+      </CategoryContextProvider>
     </UserContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
