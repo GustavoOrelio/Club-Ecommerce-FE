@@ -18,6 +18,7 @@
     "react/react-in-jsx-scope": "off",
     "no-use-before-define": "off",
     "no-unused-vars": "off",
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+    "react/prop-types": "off"
   }
 }
