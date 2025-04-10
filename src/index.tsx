@@ -4,10 +4,15 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
+// Contexts
+import UserContextProvider from './contexts/user.context'
+
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserContextProvider>
+      <App />
+    </UserContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
