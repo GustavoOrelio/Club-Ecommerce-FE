@@ -1,12 +1,12 @@
-import { BsCart3 } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 import { useContext } from 'react'
+import { BsCart3 } from 'react-icons/bs'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 // Utilities
-import { UserContext } from '../../contexts/user.context'
-import { auth } from '../../config/firebase.config'
 import { CartContext } from '../../contexts/cart.context'
+import { auth } from '../../config/firebase.config'
 
 // Styles
 import {
@@ -19,8 +19,13 @@ import {
 const Header = () => {
   const navigate = useNavigate()
 
-  const { isAuthenticated } = useContext(UserContext)
-  const { toggleCart, productsCount } = useContext(CartContext)
+  const dispatch = useDispatch()
+
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
+
+  const { productsCount, toggleCart } = useContext(CartContext)
 
   const handleLogoClick = () => {
     navigate('/')
@@ -38,6 +43,11 @@ const Header = () => {
     navigate('/explore')
   }
 
+  const handleSignOutClick = () => {
+    dispatch({ type: 'LOGOUT_USER' })
+    signOut(auth)
+  }
+
   return (
     <HeaderContainer>
       <HeaderTitle onClick={handleLogoClick}>CLUB CLOTHING</HeaderTitle>
@@ -50,9 +60,11 @@ const Header = () => {
             <HeaderItem onClick={handleSignUpClick}>Criar Conta</HeaderItem>
           </>
         )}
+
         {isAuthenticated && (
-          <HeaderItem onClick={() => signOut(auth)}>Sair</HeaderItem>
+          <HeaderItem onClick={handleSignOutClick}>Sair</HeaderItem>
         )}
+
         <HeaderItem onClick={toggleCart}>
           <BsCart3 size={25} />
           <p style={{ marginLeft: 5 }}>{productsCount}</p>

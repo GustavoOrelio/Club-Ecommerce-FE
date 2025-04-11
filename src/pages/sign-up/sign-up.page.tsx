@@ -1,10 +1,15 @@
 import { FiLogIn } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
 import validator from 'validator'
-import { AuthError, createUserWithEmailAndPassword, AuthErrorCodes } from 'firebase/auth'
-import { collection, addDoc } from 'firebase/firestore'
+import {
+  AuthError,
+  createUserWithEmailAndPassword,
+  AuthErrorCodes
+} from 'firebase/auth'
+import { addDoc, collection } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useContext, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 // Components
 import CustomButton from '../../components/custom-button/custom-button.component'
@@ -23,7 +28,6 @@ import {
 
 // Utilities
 import { auth, db } from '../../config/firebase.config'
-import { UserContext } from '../../contexts/user.context'
 
 interface SignUpForm {
   firstName: string
@@ -46,7 +50,9 @@ const SignUpPage = () => {
 
   const watchPassword = watch('password')
 
-  const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
 
   const navigate = useNavigate()
 
@@ -59,13 +65,14 @@ const SignUpPage = () => {
   const handleSubmitPress = async (data: SignUpForm) => {
     try {
       setIsLoading(true)
+
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       )
 
-      addDoc(collection(db, 'users'), {
+      await addDoc(collection(db, 'users'), {
         id: userCredentials.user.uid,
         email: userCredentials.user.email,
         firstName: data.firstName,
@@ -86,7 +93,9 @@ const SignUpPage = () => {
   return (
     <>
       <Header />
+
       {isLoading && <Loading />}
+
       <SignUpContainer>
         <SignUpContent>
           <SignUpHeadline>Crie sua conta</SignUpHeadline>
@@ -162,7 +171,7 @@ const SignUpPage = () => {
 
             {errors?.password?.type === 'minLength' && (
               <InputErrorMessage>
-                A senha deve ter pelo menos 6 caracteres.
+                A senha precisa ter no mínimo 6 caracteres.
               </InputErrorMessage>
             )}
           </SignUpInputContainer>
@@ -190,7 +199,7 @@ const SignUpPage = () => {
 
             {errors?.passwordConfirmation?.type === 'minLength' && (
               <InputErrorMessage>
-                A confirmação de senha deve ter pelo menos 6 caracteres.
+                A confirmação de senha precisa ter no mínimo 6 caracteres.
               </InputErrorMessage>
             )}
 

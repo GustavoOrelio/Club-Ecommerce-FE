@@ -15,13 +15,11 @@ import store from './store/store'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <UserContextProvider>
-        <CategoryContextProvider>
-          <CartContextProvider>
-            <App />
-          </CartContextProvider>
-        </CategoryContextProvider>
-      </UserContextProvider>
+      <CategoryContextProvider>
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
+      </CategoryContextProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
