@@ -8,7 +8,6 @@ import reportWebVitals from './reportWebVitals'
 import { PersistGate } from 'redux-persist/integration/react'
 
 // Contexts
-import CategoryContextProvider from './contexts/category.context'
 import { store, persistedStore } from './store/store'
 
 // eslint-disable-next-line react/no-deprecated
@@ -16,9 +15,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistedStore}>
-        <CategoryContextProvider>
-          <App />
-        </CategoryContextProvider>
+        <App />
       </PersistGate>
     </Provider>
   </React.StrictMode>,
