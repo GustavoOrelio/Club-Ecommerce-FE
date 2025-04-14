@@ -21,6 +21,7 @@
     "no-unused-vars": "off",
     "space-before-function-paren": "off",
     "react/prop-types": "off",
-    "multiline-ternary": "off"
+    "multiline-ternary": "off",
+    "prefer-promise-reject-errors": "off"
   }
 }
